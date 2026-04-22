@@ -72,21 +72,6 @@ Open Claude Code anywhere inside this repo. The Echo workflow auto-activates. Sa
 
 > Distill [name] · or · What would [name] do? · or · Make an [name] perspective
 
-The workflow runs in six phases:
-
-1. **Phase 0** — routing + demand clarification (1–2 questions; no intake-form feel)
-2. **Phase 0.5** — creates the echo directory, completion checks
-3. **Phase 1** — six parallel research agents (primary works, contemporary records, letters, scholarship, era context, reception history)
-4. **Phase 1.5** — research review checkpoint (quality summary for confirmation)
-5. **Phase 2** — framework distillation (mental models, heuristics, expression DNA, era-anchored views, misappropriations, anachronism protocol, moral distance)
-6. **Phase 2.5** — distillation confirmation checkpoint
-7. **Phase 3** — assembles a SKILL.md from the template
-8. **Phase 4** — a validation subagent runs 7 tests (Known, Anachronism, Analogical Transfer, Edge, Style, Historical Accuracy, Moral Distance)
-9. **Phase 5** — two refinement agents (structural optimizer + historical authenticity) propose concrete text changes
-
-The result is written to `.claude/skills/<name>-echo/`. For publication in this repo,
-move it to `examples/<name>-echo/`.
-
 ## Why these echoes are different from "roleplay as X"
 
 1. **Labeled quote provenance.** Every quoted passage is tagged `[documented]` / `[attested]` /
@@ -118,50 +103,6 @@ move it to `examples/<name>-echo/`.
 | `nietzsche-echo` | 1844–1889 | Genealogy, eternal recurrence test, perspectivism with rank, will-to-power diagnostic, philosophy-as-memoir, ressentiment |
 | `socrates-echo` | c. 470–399 BCE | Elenchus, craft-analogy, definitional questioning, care of soul |
 
-## File structure
-
-```
-Echo/
-├── README.md
-├── LICENSE
-├── .claude/
-│   └── skills/
-│       └── echo/                      ← the workflow; auto-activates in Claude Code
-│           ├── SKILL.md
-│           └── references/
-│               └── echo-template.md
-├── examples/                          ← browseable catalog of distilled echoes
-│   ├── albert-einstein-echo/
-│   ├── emerson-echo/
-│   ├── karl-marx-echo/
-│   ├── napoleon-echo/
-│   ├── nietzsche-echo/
-│   └── socrates-echo/
-└── utilities/
-    ├── install-echo.sh
-    ├── install-echo.ps1
-    └── README.md
-```
-
-### Each echo follows the same internal layout
-
-```
-<name>-echo/
-├── SKILL.md                              ← the runnable cognitive system
-└── references/
-    ├── research/
-    │   ├── 01-primary-works.md
-    │   ├── 02-contemporary-records.md
-    │   ├── 03-letters-sayings.md
-    │   ├── 04-scholarly-biographies.md
-    │   ├── 05-era-context.md
-    │   └── 06-reception-history.md
-    └── sources/
-        ├── primary/
-        ├── translations/
-        └── scholarship/
-```
-
 ## Using an echo without Claude Code
 
 The `SKILL.md` inside each echo is a complete, self-contained prompt. To use with another
@@ -175,20 +116,3 @@ LLM or API:
 ## License
 
 MIT — see [LICENSE](LICENSE).
-
-## Contributing
-
-New echoes are welcome. Use the Echo workflow to create one — it enforces the quality
-discipline (labeled provenance, era-anchoring, anachronism protocol, moral distance,
-7-test validation). When your echo passes Phase 4 validation, move it from
-`.claude/skills/<name>-echo/` to `examples/<name>-echo/` and open a pull request.
-
-What would make a good new echo?
-- A figure with substantial surviving primary material (published works, letters, attested sayings)
-- A distinctive thinking style, not just a famous biography
-- At least one set of misappropriations worth explicitly disowning
-- A corpus robust enough that the figure can be wrong about many things and still worth hearing
-
-## Credits
-
-Distillation method adapted from the [Nuwa skill-creation technique](https://github.com/alchaincyf/nuwa-skill).

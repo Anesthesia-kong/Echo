@@ -1,6 +1,26 @@
 # utilities/
 
-Scripts that help install distilled echoes from `examples/` into a Claude Code skills directory.
+Scripts for installing distilled echoes and for the mechanical parts of the distillation workflow itself.
+
+## Distillation-workflow helpers (Python, stdlib only)
+
+These three scripts cover the mechanical bottlenecks inside the Echo workflow. They do not make judgment calls (model extraction, voice, era-anchoring stay with the orchestrator); they only handle deterministic work that was being done by hand.
+
+| Script | Phase | What it does |
+|---|---|---|
+| `scaffold_echo.py <slug>` | 0.5 | Creates `.claude/skills/<slug>-echo/` with `scripts/`, `references/research/` (six numbered stubs), `references/sources/{primary,translations,scholarship}/`. Use `--theme` for `<slug>-framework/` instead. |
+| `research_stats.py <slug>` | 1.5 | Walks `references/research/*.md` and prints per-file word count, source-tag count, and claim-label distribution (`[documented]`/`[attested]`/`[attributed]`/`[legendary]`/`[modern-scholarly-inference]`/`[absent]`). Flags thin files (<300 words) and reports the documented+attested ratio against the 50% pass bar. |
+| `skill_lint.py <slug>` | 4 | Structural lint on a finished SKILL.md. Errors (fail the lint): missing required section, model count outside 3-7, heuristic count outside 5-10, any mental model missing era-assumption/evidence/failure-mode, any heuristic missing era-application/modern-analog, Honest Boundaries with <4 items. Warnings (review, don't fail): label ratio <50% documented+attested, CJK quote in SKILL.md not traceable to any research file (can be a hallucinated quote OR a research-file gap — eyeball it). |
+
+All three pass `--theme` to target `<slug>-framework/` directories. Exit 0 = clean, 1 = errors, 2 = missing file.
+
+```bash
+python utilities/scaffold_echo.py marcus-aurelius
+python utilities/research_stats.py marcus-aurelius
+python utilities/skill_lint.py marcus-aurelius
+```
+
+## Install-echo helpers
 
 ## install-echo
 

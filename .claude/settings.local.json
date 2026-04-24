@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Write(.claude/skills/chongzhen-echo/**)",
+      "Edit(.claude/skills/chongzhen-echo/**)"
+    ]
+  }
+}
